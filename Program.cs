@@ -22,8 +22,13 @@ namespace Day5
                         int origin = num;
                         int factor = 2;
                         List<int> primesList = new List<int>();
-                        while (factor <= origin)
+                        while (factor <= Math.Ceiling(Math.Sqrt(Convert.ToDouble(origin))))   // loop from 2 -> sqrt(n)
                         {
+                            if (isPrime(num))
+                            {
+                                primesList.Add(num);
+                                break;
+                            }
                             if (num % factor == 0)
                             {
                                 primesList.Add(factor);
@@ -31,16 +36,13 @@ namespace Day5
                             }
                             else
                             {
-                                if (factor == 2) factor += 1;
-                                else
+                                // find the next prime factor
+                                factor = factor == 2 ? factor + 1 : factor + 2;
+                                while (!isPrime(factor))
                                 {
-                                    // find the next prime factor
-                                    do
-                                    {
-                                        factor += 2;
-                                    } while (!isPrime(factor));
-                                    Console.WriteLine($"The next prime factor is {factor}");
+                                    factor += 2;
                                 }
+                                Console.WriteLine($"The next prime factor is {factor}");                               
                             }
                         }    
                         output += String.Join(" x ", primesList);
@@ -51,7 +53,6 @@ namespace Day5
             }
             Console.WriteLine("Goodbye!");
             
-
             // checks to see if a number is prime or not
             bool isPrime(int num)
             {
@@ -63,8 +64,6 @@ namespace Day5
                 }
                 return true;
             }
-
-
         }
     }
 }
