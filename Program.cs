@@ -8,45 +8,61 @@ namespace Day5
     {
         static void Main(string[] args)
         {
-            int num;
             while (true)
             {
                 Console.Write("Enter a positive number (or 0 to quit): ");
-
-                if (int.TryParse(Console.ReadLine(), out num) && num >= 0)
+                string input = Console.ReadLine();
+                if (input == "0") break;
+                if (Int32.TryParse(input, out int num) && num >= 1)
                 {
-
-                    if (num == 0) break;
-                    string output = $"{num} = ";
-                    if (num == 1)
+                    if (num == 1 || num == 2) Console.WriteLine($"{num} = {num}");
+                    else
                     {
-                        Console.WriteLine(output += '1');
-                        continue;
-                    }
-                    List<int> primesList = new List<int>();
-                    int factor = 2;
-                    while (num != 1)
-                    {
-                        if (num % factor == 0)
+                        string output = $"{num} = ";
+                        int origin = num;
+                        int factor = 2;
+                        List<int> primesList = new List<int>();
+                        while (factor <= origin)
                         {
-                            primesList.Add(factor);
-                            num = num / factor;
-                        }
-                        else
-                        {
-                            factor++;
-                        }
+                            if (num % factor == 0)
+                            {
+                                primesList.Add(factor);
+                                num /= factor;
+                            }
+                            else
+                            {
+                                if (factor == 2) factor += 1;
+                                else
+                                {
+                                    // find the next prime factor
+                                    do
+                                    {
+                                        factor += 2;
+                                    } while (!isPrime(factor));
+                                    Console.WriteLine($"The next prime factor is {factor}");
+                                }
+                            }
+                        }    
+                        output += String.Join(" x ", primesList);
+                        Console.WriteLine(output);
                     }
-                    output += String.Join(" x ", primesList.ToArray());
-                    Console.WriteLine(output);
-
                 }
-                else
-                {
-                    Console.WriteLine("Invalid input!");
-                }
+                else Console.WriteLine("Invalid input!");
             }
             Console.WriteLine("Goodbye!");
+            
+
+            // checks to see if a number is prime or not
+            bool isPrime(int num)
+            {
+                int factor = 2;
+                while (factor <= Math.Sqrt(num))
+                {
+                    if (num % factor == 0) return false;
+                    else factor++;
+                }
+                return true;
+            }
 
 
         }
