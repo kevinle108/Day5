@@ -22,7 +22,7 @@ namespace Day5
                         int origin = num;
                         int factor = 2;
                         List<int> primesList = new List<int>();
-                        while (factor <= Math.Ceiling(Math.Sqrt(Convert.ToDouble(origin))))   // loop from 2 -> sqrt(n)
+                        while (factor <= Math.Ceiling(Math.Sqrt(Convert.ToDouble(origin))))   // loop from 2 -> Ceiling of sqrt(n)
                         {
                             if (isPrime(num))
                             {
