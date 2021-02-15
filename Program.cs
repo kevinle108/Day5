@@ -21,7 +21,7 @@ namespace Day5
                     if (num == 1)
                     {
                         Console.WriteLine(output += '1');
-                        return;
+                        continue;
                     }
                     List<int> primesList = new List<int>();
                     int factor = 2;
